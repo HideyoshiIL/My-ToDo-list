@@ -13,7 +13,7 @@ btnAdd.addEventListener('click', () => {
   li.textContent = text;
 
   if (ul.children.length <= 25 && text.length <= 80) {
-  ul.append(li);
+  ul.prepend(li);
   } else {
     alert("Достигнут лимит задач или задача слишком длинная");
   }
