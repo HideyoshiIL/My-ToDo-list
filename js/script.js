@@ -1,26 +1,52 @@
-"use strick"
+"use strict"
 
 const tasksDB = {
   tasks: []
 };
 
-const inp = document.querySelector('#entry');
-const btnAdd = document.querySelector('.add');
-const ul = document.querySelector('.list');
+const form = document.querySelector('.inp')
+const entry = document.querySelector('.entry');
+const tasksList = document.querySelector('.list');
 const checkBox = document.querySelector('[type="checkbox"]');
 
-btnAdd.addEventListener('submit', (event) => {
+form.addEventListener('submit', (event) => {
   event.preventDefault();
-  const text = inp.value;
+  const newTasks = entry.value;
+  const imporChek = checkBox.checked;
 
-  // const li = document.createElement('li');
-  // li.textContent = text;
+  
+  if (tasksDB.tasks.length >= 15) {
+    alert("Слишком много задач");
+    return;
+  } 
+  if (newTasks.length > 25) {
+    alert("Задача слишком длинная");
+  }
+  if (newTasks.trim() === "") {
+    return;
+  }
 
-  // if (ul.children.length <= 25 && text.length <= 80) {
-  // ul.prepend(li);
-  // } else {
-  //   alert("Достигнут лимит задач или задача слишком длинная");
-  // }
-
+  tasksDB.tasks.push(newTasks);
+  createTasksList(tasksDB.tasks, tasksList);
   event.target.reset();
 });
+
+
+
+function createTasksList(task, parent) {
+  parent.innerHTML = "";
+  task.forEach((tas, i) => {
+    parent.innerHTML += `<li class="newTask">${i + 1}. ${tas}
+    <i class="fa fa-trash-o" aria-hidden="true"></i> </li>`
+  });
+
+  document.querySelectorAll(".fa-trash-o").forEach((btm, i) => {
+    btm.addEventListener('click', () => {
+      btm.parentElement.remove();
+      tasksDB.tasks.splice(i, 1);
+      createTasksList(task, parent);
+    })
+  });
+}
+
+  createTasksList(tasksDB.tasks, tasksList);
