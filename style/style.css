@@ -13,29 +13,32 @@ body {
 
 
 .box {
-  
+  min-height: 800px;
   box-sizing: border-box;
   border-radius: 25px;
   backdrop-filter: blur(50px);
   width: 1000px;
-  height: border-box;
   margin: 50px auto auto;
   display: flex;
   align-items: center;
   flex-direction: column;
+  
 }
 
 .inner {  
 
   box-sizing: border-box;
   border-radius: 25px;
-  width: 900px;
-  height: border-box;
+  min-width: 900px;
   border: 2px black solid;
   margin: 5px 0px 40px 0px;
   display: flex;
-  justify-content: center;
+
+  justify-content: start;
+
 }
+
+
 
 #name {
   font-family: serifItalic;
@@ -51,17 +54,28 @@ body {
 }
 
 .inp {
-  display: flex;
-  justify-content: space-between;
-  margin:  10px;
-}
-
-.inner {
+  min-width: 350px;
+  padding: 10px 2px;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  margin: auto;
+  margin:  10px;
+  background: rgba(221, 106, 106, 0.233);
+  backdrop-filter: blur(20px);
+  border-radius: 50px;
+  
 }
+
+#import {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.add{
+   cursor: pointer;
+}
+
 ul {
 list-style: none;
 }
