@@ -18,26 +18,43 @@ form.addEventListener('submit', (event) => {
   if (tasksDB.tasks.length >= 15) {
     alert("Слишком много задач");
     return;
-  } 
-  if (newTasks.length > 25) {
+  } else if (newTasks.length > 1150) {
     alert("Задача слишком длинная");
-  }
-  if (newTasks.trim() === "") {
+  } else if (newTasks.trim() === "") {
     return;
-  }
-
-  tasksDB.tasks.push(newTasks);
-  createTasksList(tasksDB.tasks, tasksList);
+  } else {
+  tasksDB.tasks.push({
+    text: newTasks,
+    important: imporChek
+  });
+  createTasksList(tasksDB.tasks, tasksList, imporChek);
   event.target.reset();
+  }
 });
 
 
 
 function createTasksList(task, parent) {
   parent.innerHTML = "";
+
   task.forEach((tas, i) => {
-    parent.innerHTML += `<li class="newTask">${i + 1}. ${tas}
-    <i class="fa fa-trash-o" aria-hidden="true"></i> </li>`
+    if (tas.important){
+      parent.innerHTML += `
+      <li class="newTask">
+        <div class="taskContent">
+        <span> ${i + 1}. <i class="fa fa-star" aria-hidden="true"></i> ${tas.text}</span>
+        </div>
+    <i class="fa fa-trash-o" aria-hidden="true"></i> 
+    </li>`
+    } else {
+      parent.innerHTML += `
+      <li class="newTask">
+        <div class="taskContent">
+        <span> ${i + 1}. ${tas.text}</span>
+        </div>
+    <i class="fa fa-trash-o" aria-hidden="true"></i> 
+    </li>`
+    }
   });
 
   document.querySelectorAll(".fa-trash-o").forEach((btm, i) => {
@@ -47,6 +64,8 @@ function createTasksList(task, parent) {
       createTasksList(task, parent);
     })
   });
+
+
 }
 
   createTasksList(tasksDB.tasks, tasksList);
